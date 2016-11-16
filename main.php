@@ -17,7 +17,7 @@ $WEB_TERMINAL = "http://localhost:9080/lite";
 
 $json = encrypt($RSA_SERVICE, "0", "DEMO");
 
-// generate http://localhost:9080/lite?d=[HEX ENRYPED]&k=[RSA encrypted AES]
+// generate http://localhost:9080/lite?d=[HEX encrypted AES]&k=[RSA encrypted AES]
 $url = jsonToURL($WEB_TERMINAL, $json);
 
 print $url;
