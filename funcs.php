@@ -134,22 +134,22 @@ function getJson($uuid = "", $host = "", $user = "user", $password = "", $progra
 /*
  * Encrypt login data and convert to JSON url string for 5250 terminal
  */
-function encrypt($rsaService = "", $uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "")
+function encrypt($service = "", $uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "")
 {
   // login params
   $params = getJson($uuid, $host, $user, $password, $program, $menu, $lib);
-  return encryptJson($rsaService, $params);
+  return encryptJson($service, $params);
 
 }
 
 /**
  * Encrypt JSON object for GreenScreens 5250 Web Terminal
  */
-function encryptJson($rsaService = "", $jsonObj)
+function encryptJson($service = "", $jsonObj)
 {
 
   // retrieve JSON object with RSA and ts values
-  $rsaObj = getRSA($rsaService);
+  $rsaObj = getRSA($service . "/services/auth");
   $rsaKey = $rsaObj->{'key'};
 
   // prepare AES
@@ -176,10 +176,15 @@ function encryptJson($rsaService = "", $jsonObj)
   return $json_data;
 }
 
+function jsonToURLService($url = "", $json)
+{
+    $params = jsonToURL($json);
+    return $url . "/lite?" . $params;
+}
 /*
  * Iterate over JSON object properties and create query string
  */
-function jsonToURL($url = "", $json)
+function jsonToURL($json)
 {
 
  $parm = "";
@@ -189,7 +194,7 @@ function jsonToURL($url = "", $json)
     $parm = $parm . $key . "=" . $value . "&";
  }
 
- return $url . "?" . $parm;
+ return $parm;
 
 }
 

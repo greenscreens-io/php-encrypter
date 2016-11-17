@@ -9,16 +9,15 @@
 require_once "funcs.php";
 
 // Green Screens RSA service URL to get encryption public key
-$RSA_SERVICE = "http://localhost:9080/services/auth";
-$WEB_TERMINAL = "http://localhost:9080/lite";
+$GREENSCRES_SERVICE = "http://localhost:9080";
 
 //$json = encrypt($RSA_SERVICE, "0", "DEMO", "QSECOFR", "MYPASWORD");
 //$json = encrypt($RSA_SERVICE, "0", "DEMO", "QSECOFR", "MYPASWORD", "PROGRAM", "MENU", "LIB");
 
-$json = encrypt($RSA_SERVICE, "0", "DEMO");
+$json = encrypt($GREENSCRES_SERVICE, "0", "DEMO");
 
 // generate http://localhost:9080/lite?d=[HEX encrypted AES]&k=[RSA encrypted AES]
-$url = jsonToURL($WEB_TERMINAL, $json);
+$url = jsonToURLService($GREENSCRES_SERVICE, $json);
 
 print $url;
 print "\n";
