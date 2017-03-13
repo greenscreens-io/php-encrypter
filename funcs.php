@@ -117,7 +117,7 @@ function makeid($len) {
 /*
  * Convert parameters to JSON structure
 */
-function getJson($uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "")
+function getJson($uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0)
 {
 
     $json_data = array('uuid' => $uuid,
@@ -126,7 +126,9 @@ function getJson($uuid = "", $host = "", $user = "user", $password = "", $progra
         'password' => $password,
         'program' => $program,
         'menu' => $menu,
-        'lib' => $lib);
+        'lib' => $lib,
+        'exp' => $exp
+        );
 
      return json_encode($json_data);
 }
@@ -134,10 +136,11 @@ function getJson($uuid = "", $host = "", $user = "user", $password = "", $progra
 /*
  * Encrypt login data and convert to JSON url string for 5250 terminal
  */
-function encrypt($service = "", $uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "")
+function encrypt($service = "", $uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0;)
 {
+
   // login params
-  $params = getJson($uuid, $host, $user, $password, $program, $menu, $lib);
+  $params = getJson($uuid, $host, $user, $password, $program, $menu, $exp);
   return encryptJson($service, $params);
 
 }
@@ -176,11 +179,15 @@ function encryptJson($service = "", $jsonObj)
   return $json_data;
 }
 
+/**
+ * Convert JSON object to url string
+ */
 function jsonToURLService($url = "", $json)
 {
     $params = jsonToURL($json);
     return $url . "/lite?" . $params;
 }
+
 /*
  * Iterate over JSON object properties and create query string
  */
@@ -196,6 +203,40 @@ function jsonToURL($json)
 
  return $parm;
 
+}
+
+/*
+ * Get Java/Javascript timestap in future
+ */
+function getTimestamp($future)
+{
+  $date = new DateTime();
+
+  // php timestamp to java/javascript format * future date
+  $timestamp = $date->getTimestamp() * 1000 * $future;
+
+ return $timestamp;
+}
+
+
+/*
+ * Get Java/Javascript timestap in future in hours
+ */
+function futureHours($hours)
+{
+  // 24h, 60, 60s
+  $future = $hours * 60 * 60;
+  return getTimestamp($future);
+}
+
+/*
+ * Get Java/Javascript timestap in future in hours
+ */
+function futureDays($days)
+{
+  // 5day, 24h, 60, 60s
+  $future = $days * 24 * 60 * 60;
+  return getTimestamp($future);
 }
 
 ?>
