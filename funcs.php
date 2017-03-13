@@ -218,7 +218,6 @@ function getTimestamp($future)
  return $timestamp;
 }
 
-
 /*
  * Get Java/Javascript timestap in future in hours
  */
