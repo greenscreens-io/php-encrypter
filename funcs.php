@@ -22,7 +22,7 @@ require_once "Crypt/AES.php";
 /*
  * cURL program caller
  *
- * In case of errors try t oinstal it on machine with
+ * In case of errors try to instal it on machine with
  * sudo apt-get install php5-curl
  */
 function CallAPI($method, $url, $data = false)
