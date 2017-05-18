@@ -159,7 +159,7 @@ function encryptJson($service = "", $jsonObj)
   $aesKey = makeid(16);
   $aesIV = makeid(16);
 
-  $cipher = new Crypt_AES(CRYPT_AES_MODE_OFB);
+  $cipher = new Crypt_AES(CRYPT_AES_MODE_CTR);
   $cipher->setKeyLength(128);
   $cipher->setKey($aesKey);
   $cipher->setIV($aesIV);
@@ -172,7 +172,7 @@ function encryptJson($service = "", $jsonObj)
   // encrypt aes with rsa
   $aesRsa =  $aesIV . $aesKey;
   $aesRsaEncrypted = rsa_encrypt($aesRsa, $rsaKey);
-  
+
   $json_data = array('d' => $hex,
         'k' => $aesRsaEncrypted,
         'v' => 0);
