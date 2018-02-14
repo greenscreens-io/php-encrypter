@@ -103,12 +103,12 @@ function rsa_encrypt($string, $public_key)
 function makeid($len) {
     $ALPHANUM = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     $text = "";
-    $poslen = strlen($ALPHANUM);
+    $poslen = strlen($ALPHANUM) - 1;
     $i = $len;
     $pos = 0;
     while ($i-- > 0 ) {
-        $pos = floor(rand(0, 62));
-        $text = $text . substr($ALPHANUM, $pos, 1);
+        $pos = rand(0, $poslen);
+        $text = $text . $ALPHANUM[$pos];
     }
     return $text;
 }
@@ -117,12 +117,13 @@ function makeid($len) {
 /*
  * Convert parameters to JSON structure
 */
-function getJson($uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0)
+function getJson($uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0, $displayName = "")
 {
 
     $json_data = array('uuid' => $uuid,
         'host' => $host,
         'user' => $user,
+        'displayName' => $displayName,
         'password' => $password,
         'program' => $program,
         'menu' => $menu,
@@ -136,11 +137,11 @@ function getJson($uuid = "", $host = "", $user = "user", $password = "", $progra
 /*
  * Encrypt login data and convert to JSON url string for 5250 terminal
  */
-function encrypt($service = "", $uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0;)
+function encrypt($service = "", $uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0, $displayName)
 {
 
   // login params
-  $params = getJson($uuid, $host, $user, $password, $program, $menu, $exp);
+  $params = getJson($uuid, $host, $user, $password, $program, $menu, $lib, $exp, $displayName);
   return encryptJson($service, $params);
 
 }
@@ -171,6 +172,12 @@ function encryptJson($service = "", $jsonObj)
 
   // encrypt aes with rsa
   $aesRsa =  $aesIV . $aesKey;
+print  $aesIV;
+print "\n";
+print  $aesKey;
+print "\n";
+print  $aesRsa;
+print "\n";
   $aesRsaEncrypted = rsa_encrypt($aesRsa, $rsaKey);
 
   $json_data = array('d' => $hex,
