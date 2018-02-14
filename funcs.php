@@ -172,12 +172,7 @@ function encryptJson($service = "", $jsonObj)
 
   // encrypt aes with rsa
   $aesRsa =  $aesIV . $aesKey;
-print  $aesIV;
-print "\n";
-print  $aesKey;
-print "\n";
-print  $aesRsa;
-print "\n";
+
   $aesRsaEncrypted = rsa_encrypt($aesRsa, $rsaKey);
 
   $json_data = array('d' => $hex,
