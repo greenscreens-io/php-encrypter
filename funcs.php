@@ -137,7 +137,7 @@ function getJson($uuid = "", $host = "", $user = "user", $password = "", $progra
 /*
  * Encrypt login data and convert to JSON url string for 5250 terminal
  */
-function encrypt($service = "", $uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0, $displayName)
+function encrypt($service = "", $uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0, $displayName = "")
 {
 
   // login params
