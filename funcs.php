@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2015, 2016  Green Screens Ltd.
+ * Copyright (C) 2015 - 2018  Green Screens Ltd.
  *
  * PHP lib to create Green Screens Web Terminal encrypted URL
  *
@@ -15,9 +15,17 @@
  */
 
 set_include_path(get_include_path() . PATH_SEPARATOR . 'phpseclib');
+set_include_path(get_include_path() . PATH_SEPARATOR . 'otplib');
 
+require_once "lib/otphp.php";
 require_once "Crypt/RSA.php";
 require_once "Crypt/AES.php";
+
+function getOTP($key = "0000000000000000")
+{
+ $totp = new \OTPHP\TOTP($key);
+ return $totp->now();
+}
 
 /*
  * cURL program caller
@@ -117,7 +125,7 @@ function makeid($len) {
 /*
  * Convert parameters to JSON structure
 */
-function getJson($uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0, $displayName = "")
+function getJson($uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0, $displayName = "", $otp = 0)
 {
 
     $json_data = array('uuid' => $uuid,
@@ -128,7 +136,8 @@ function getJson($uuid = "", $host = "", $user = "user", $password = "", $progra
         'program' => $program,
         'menu' => $menu,
         'lib' => $lib,
-        'exp' => $exp
+        'exp' => $exp,
+        'otp' => $otp
         );
 
      return json_encode($json_data);
@@ -137,11 +146,11 @@ function getJson($uuid = "", $host = "", $user = "user", $password = "", $progra
 /*
  * Encrypt login data and convert to JSON url string for 5250 terminal
  */
-function encrypt($service = "", $uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0, $displayName = "")
+function encrypt($service = "", $uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0, $displayName = "", $otp = 0)
 {
 
   // login params
-  $params = getJson($uuid, $host, $user, $password, $program, $menu, $lib, $exp, $displayName);
+  $params = getJson($uuid, $host, $user, $password, $program, $menu, $lib, $exp, $displayName, $otp);
   return encryptJson($service, $params);
 
 }

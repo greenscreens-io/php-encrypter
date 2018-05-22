@@ -55,3 +55,9 @@ To generate url address with program to start on sign-on
  $json = encrypt($RSA_SERVICE, "0", "DEMO", null, null, "PROGRAM", "MENU", "LIB");
 ```
 
+To generate url address protected with OTP. (create OTP at localhost:9080/otp)
+
+```
+ $code = getOTP("7OP4Y7NVCAJZP2KW");
+ $json = encrypt($GREENSCREENS_SERVICE, "2", "DEMO", "QSECOFR", "MYPASSWORD", null, null, null, 0, null, $code);
+```

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2015, 2016  Green Screens Ltd.
+ * Copyright (C) 2015 - 2018  Green Screens Ltd.
  *
  * PHP lib demo to create Green Screens Web Terminal encrypted URL
  *
@@ -26,6 +26,11 @@ $GREENSCREENS_SERVICE = "http://localhost:9080";
 // if time limited url link is needed
 // $exp = futureDays(5) ; //or $exp = futureHours(2)
 // $json = encrypt($GREENSCREENS_SERVICE, "2", "DEMO", "QSECOFR", "MYPASSWORD", null, null, null, $exp, " ");
+
+
+// OTP protected URL (create OTP at localhost:9080/otp)
+// $code = getOTP("7OP4Y7NVCAJZP2KW");
+// $json = encrypt($GREENSCREENS_SERVICE, "2", "DEMO", "QSECOFR", "MYPASSWORD", null, null, null, 0, null, $code);
 
 //$json = encrypt($GREENSCREENS_SERVICE, "0", "DEMO");
 
