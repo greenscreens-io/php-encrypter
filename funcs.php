@@ -9,7 +9,7 @@
  * cURL program used to call remote Green Screens Terminal Service
  * to retrieve RSA enryption key.
  *
- * cURL PHP support can be inalled with 
+ * cURL PHP support can be inalled with
  * sudo apt-get install php5-curl
  *
  */
@@ -125,7 +125,7 @@ function makeid($len) {
 /*
  * Convert parameters to JSON structure
 */
-function getJson($uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0, $displayName = "", $otp = 0)
+function getJson($uuid = "", $host = "", $user = "user", $password = "", $program = "", $menu = "", $lib = "", $exp = 0, $displayName = "", $otp = 0, $api = "")
 {
 
     $json_data = array('uuid' => $uuid,
@@ -137,7 +137,8 @@ function getJson($uuid = "", $host = "", $user = "user", $password = "", $progra
         'menu' => $menu,
         'lib' => $lib,
         'exp' => $exp,
-        'otp' => $otp
+        'otp' => $otp,
+        'api' => $api
         );
 
      return json_encode($json_data);
@@ -156,7 +157,7 @@ function encrypt($service = "", $uuid = "", $host = "", $user = "user", $passwor
 }
 
 /**
- * Encrypt JSON object for GreenScreens 5250 Web Terminal
+ * Encrypt JSON object for Green Screens 5250 Web Terminal
  */
 function encryptJson($service = "", $jsonObj)
 {

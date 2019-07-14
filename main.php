@@ -32,6 +32,10 @@ $GREENSCREENS_SERVICE = "http://localhost:9080";
 // $code = getOTP("7OP4Y7NVCAJZP2KW");
 // $json = encrypt($GREENSCREENS_SERVICE, "2", "DEMO", "QSECOFR", "MYPASSWORD", null, null, null, 0, null, $code);
 
+// API KEY protected - access do not use opt or biometric adn password will not expire, access is validated by client ip and apikey regeistered ip 
+// $api = "1a4e39c8-07d9-4a2b-b021-d1f4103d1a22";
+// $json = encrypt($GREENSCREENS_SERVICE, "2", "DEMO", "QSECOFR", "MYPASSWORD", null, null, null, 0, null, 0, $api);
+
 //$json = encrypt($GREENSCREENS_SERVICE, "0", "DEMO");
 
 // generate http://localhost:9080/lite?d=[HEX encrypted AES]&k=[RSA encrypted AES]
