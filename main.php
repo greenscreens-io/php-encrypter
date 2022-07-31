@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2015 - 2018  Green Screens Ltd.
+ * Copyright (C) 2015 - 2022  Green Screens Ltd.
  *
  * PHP lib demo to create Green Screens Web Terminal encrypted URL
  *

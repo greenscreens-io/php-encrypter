@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2015, 2016  Green Screens Ltd.
+ * Copyright (C) 2015, 2022  Green Screens Ltd.
  *
  * Simple example of reading and parsing CSV file to 
  * automatically generate user web terminal links

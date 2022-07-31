@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2015 - 2018  Green Screens Ltd.
+ * Copyright (C) 2015 - 2022  Green Screens Ltd.
  *
  * PHP lib to create Green Screens Web Terminal encrypted URL
  *
@@ -71,7 +71,7 @@ function CallAPI($method, $url, $data = false)
  * Retrieve RSA from remote service with cURL
  * Parse to JSON object
  *
- * {"succss": true, "ts" : 34532452354325, "key" : "PKCS12 ecded public key"}
+ * {"succss": true, "ts" : 34532452354325, "key" : "PKCS12 ecded public key", "build":20220101}
  *
  *  $obj->{'key'};
  *  $obj->{'ts'};
@@ -165,6 +165,9 @@ function encryptJson($service = "", $jsonObj)
   // retrieve JSON object with RSA and ts values
   $rsaObj = getRSA($service . "/services/auth");
   $rsaKey = $rsaObj->{'key'};
+  
+  // gs server build
+  $build = $rsaObj->{'build'};
 
   // prepare AES
   $aesKey = makeid(16);
@@ -187,7 +190,8 @@ function encryptJson($service = "", $jsonObj)
 
   $json_data = array('d' => $hex,
         'k' => $aesRsaEncrypted,
-        'v' => 0);
+        'v' => 0,
+		'b' => $build);
   return $json_data;
 }
 
@@ -196,7 +200,13 @@ function encryptJson($service = "", $jsonObj)
  */
 function jsonToURLService($url = "", $json)
 {
+	$build = $json->{'build'};
+	unset($json['build']);
     $params = jsonToURL($json);
+	// add support for build greater or equal to GS 20220725
+	if ( $build >= 20220725 ) {
+		return $url . "/terminal?" . $params;
+	}
     return $url . "/lite?" . $params;
 }
 
