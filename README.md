@@ -1,7 +1,6 @@
 PHP Url Encrypter
 ===================
 
-
 GreenScreens Web 5250 Terminal URL address uses custom encryption based on RSA algorithm generated at GreenScreens Terminal Service to protect URL parameters like auto sign-on data.  
 
 Some clients require server side generation of terminal URL address inside their own software so here comes PHP URL Encrypter an integration supporting lib . 
